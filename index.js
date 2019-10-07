@@ -1,7 +1,8 @@
-import * as Auth from './authAPI';
-import * as Core from './coreAPI';
-import * as Content from './contentAPI';
+var Auth = require('./authAPI');
+var Core = require('./coreAPI');
+var Content = require('./contentAPI');
 
-// Defines a single library that contains all API methods
 const Lumi = { ...Auth, ...Core, ...Content };
-export default Lumi;
+
+module.exports = Lumi;
+module.exports.default = Lumi;

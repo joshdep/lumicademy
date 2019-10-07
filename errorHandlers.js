@@ -71,3 +71,9 @@ export const handleErrors = (error, callback) => {
 	}
 	console.log('Config: ', error.config);
 };
+
+module.exports = {
+	ERRORCODE: ERRORCODE,
+	handleErrors: handleErrors
+};
+module.exports.default = handleErrors;
