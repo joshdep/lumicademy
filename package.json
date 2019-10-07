@@ -1,21 +1,25 @@
 {
   "name": "lumicademy",
   "version": "1.0.0",
-  "description": "This package contains the APIs for accessing features within the Lumicademy services.",
+  "description": "This package contains a library of functions for connecting to the Lumicademy APIs.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Josh DePonte",
   "license": "ISC",
-  "repository": "joshken/lumicademy",
+  "repository": "joshdep/lumicademy",
   "keywords": [
-  	"lumicademy",
-  	"video",
-  	"chat",
-  	"whiteboard",
-  	"conference",
-  	"meeting",
-  	"virtual"
-  ]
-} 
+    "lumicademy",
+    "video",
+    "chat",
+    "whiteboard",
+    "conference",
+    "meeting",
+    "virtual"
+  ],
+  "dependencies": {
+    "axios": "^0.19.0",
+    "js-file-download": "^0.4.8"
+  }
+}

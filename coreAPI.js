@@ -19,6 +19,8 @@ export const userKind = { 1: "Guest",
 				   		  2: "Attendee",
 				   		  3: "Owner" };
 
+export const relateContentAs = { DOCSHARE: 1, FILESHARE: 2 };
+
 /* CONFERENCES */
 
 // Returns a list of conferences
@@ -43,7 +45,8 @@ export const getConference = (confId, callback) => {
 export const addConference = (data, callback) => {
 	api.post("/conference", data, getAuthHeader())
 		.then(response => {
-			callback(response.data);
+			var conference = response.data;
+			callback(conference);
 		}).catch(handleErrors);
 };
 
@@ -51,15 +54,16 @@ export const addConference = (data, callback) => {
 export const updateConference = (confId, data, callback) => {
 	api.put("/conference/"+confId, data, getAuthHeader())
 		.then(response => {
-			callback(response.data);
+			var conference = response.data;
+			callback(conference);
 		}).catch(handleErrors);
 };
 
 // Marks conference as deleted
-export const deleteConference = confId => {
+export const deleteConference = (confId, callback) => {
 	api.delete("/conference/"+confId, getAuthHeader())
 		.then(response => {
-			window.location.href = "/Portal/Conferences";
+			callback();
 		}).catch(handleErrors);
 };
 

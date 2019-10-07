@@ -3,6 +3,63 @@ import { api, upload } from './apiDefinitions';
 import { TOKEN_KEY, getAuthHeader } from './authAPI';
 import { handleErrors } from './errorHandlers';
 
+// Enumeration for type of delete method
+export const deleteMethod = { NEVER: 1, AUTO: 2 };
+
+// Helper function to convert from File object to Content Object
+export const convertFileToContent = file => {
+	var content = new Content();
+	content.contentType = file.type;
+	content.content = file;
+	content.displayName = file.name;
+	content.fileName = file.name;
+	return content;
+};
+
+// Custom class for Lumicademy Content
+export default class Content {
+	constructor() {
+		this.contentId = undefined;
+		this.content = "";
+		this.contentType = "*/*";
+		this.displayName = "";
+		this.fileName = "";
+		this.created = undefined;
+		this.downloading = 0;
+		this.deleteMethod = deleteMethod.NEVER;
+
+		this.set = this.set.bind(this);
+		this.getData = this.getData.bind(this);
+	}
+
+	set(file) {
+		this.contentId = file.contentId;
+		this.content = file.content;
+		this.contentType = file.contentType;
+		this.displayName = file.displayName;
+		this.fileName = file.fileName;
+		this.created = file.created;
+		this.deleteMethod = file.deleteMethod;
+	}
+
+	getData() {
+		var request = {
+			contentType: this.contentType,
+			displayName: this.displayName,
+			fileName: this.fileName,
+			deleteMethod: this.deleteMethod
+		};
+
+		const json = JSON.stringify(request);
+		const requestBlob = new Blob([json], { type: 'application/json' });
+
+		var data = new FormData();
+		data.append('request', requestBlob);
+		data.append('content', this.content);
+		return data;
+	}
+}
+
 // Sets up authorization headers and adds a progress updater if provided
 export const generateFileOptions = updateProgress => {
 	return {

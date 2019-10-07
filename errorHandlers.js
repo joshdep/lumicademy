@@ -38,7 +38,13 @@ export const ERRORCODE = {
 	CONTENT_IN_USE: 302
 }
 
-const messageToConsole = (type, code, message) => {
+// Checks for authorization errors.
+// Redirects if unauthorized and displays error to console
+const defaultAction = (type, code, message) => {
+	if (code === ERRORCODE.TOKEN_UNAUTHORIZED) {
+		message = "Session Timed Out: Please sign in";
+		window.location.href="/SignIn?type=error&message="+message;
+	}
 	console.log(type,code,message);
 };
 
@@ -49,18 +55,13 @@ export const handleErrors = (error, callback) => {
 		var code = error.response.data.error_code;
 		var message = error.response.data.error_description;
 
-		// If no callback is provided, display errors to the console
+		// If no callback is provided, perform default action
 		if (callback === undefined) {
-			callback = messageToConsole;
+			callback = defaultAction;
+			localStorage.removeItem(TOKEN_KEY);
 		}
 
-		if (status === 401 && code === ERRORCODE.TOKEN_UNAUTHORIZED) {
-			localStorage.removeItem(TOKEN_KEY);
-			message = "Session Timed Out: Please sign in";
-			window.location.href = "/SignIn?type=error&message="+message;
-		} else {
-			callback("error", code, message);
-		}
+		callback("error", code, message);
 	} else if (error.request && error.response) {
 		console.log('Request Error: ',error.request);
 	} else if (error.request) {
