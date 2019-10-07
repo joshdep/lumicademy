@@ -1,4 +1,4 @@
-# lumicademy
+# lumicademy ![npm version](https://img.shields.io/badge/dynamic/json?label=npm&prefix=v&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fjoshdep%2Flumicademy%2Fmaster%2Fpackage.json)
 
 A library of functions for connecting to the Lumicademy APIs.
 
