@@ -2,12 +2,12 @@ import axios from 'axios';
 
 /* HEADERS */
 
-const headers = {
+export const headers = {
 	'accept': 'application/json',
 	'Content-Type': 'application/json'
 };
 
-const allDetails = {
+export const allDetails = {
 	params: {
 		'details': 'all'
 	}
@@ -15,16 +15,16 @@ const allDetails = {
 
 /* API URL CONFIGURATIONS */
 
-const api = axios.create({
+export const api = axios.create({
 	baseURL: 'https://api.lumicademy.com/',
 	headers: headers
 });
 
-const upload = axios.create({
+export const upload = axios.create({
 	baseURL: 'https://api.lumicademy.com/'
 });
 
-const auth = axios.create({
+export const auth = axios.create({
 	baseURL: 'https://auth.lumicademy.com/',
 	headers: headers
 });
@@ -37,5 +37,4 @@ var Definitions = {
 	auth: auth
 };
 
-module.exports = Definitions;
-module.exports.default = Definitions;
+export default Definitions;
