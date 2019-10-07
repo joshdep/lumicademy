@@ -1,0 +1,21 @@
+{
+  "name": "lumicademy",
+  "version": "1.0.0",
+  "description": "This package contains the APIs for accessing features within the Lumicademy services.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Josh DePonte",
+  "license": "ISC",
+  "repository": "joshken/lumicademy",
+  "keywords": [
+  	"lumicademy",
+  	"video",
+  	"chat",
+  	"whiteboard",
+  	"conference",
+  	"meeting",
+  	"virtual"
+  ]
+} 
