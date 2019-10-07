@@ -4,27 +4,27 @@ import { handleErrors } from './errorHandlers';
 
 /* RESPONSES */
 
-const confState = { 1: "Upcoming",
+export const confState = { 1: "Upcoming",
 						   2: "Started",
 						   3: "Ended",
 						   4: "Deleted" };
 
-const startMethod = { 1: "Manually waiting to be started",
+export const startMethod = { 1: "Manually waiting to be started",
 					  		 2: "Automatically started when the first user joins",
 					  		 3: "Waiting, but started when the owner joins" };
 
-const userState = { CREATED: 1, DELETED: 2 };
+export const userState = { CREATED: 1, DELETED: 2 };
 
-const userKind = { 1: "Guest",
+export const userKind = { 1: "Guest",
 				   		  2: "Attendee",
 				   		  3: "Owner" };
 
-const relateContentAs = { DOCSHARE: 1, FILESHARE: 2 };
+export const relateContentAs = { DOCSHARE: 1, FILESHARE: 2 };
 
 /* CONFERENCES */
 
 // Returns a list of conferences
-const getConferences = callback => {
+export const getConferences = callback => {
 	api.get("/conferences", getAuthHeader(allDetails))
 		.then(response => {
 			var conferences = response.data.items;
@@ -33,7 +33,7 @@ const getConferences = callback => {
 };
 
 // Retrieves info about conference
-const getConference = (confId, callback) => {
+export const getConference = (confId, callback) => {
 	api.get("/conference/"+confId, getAuthHeader(allDetails))
 		.then(response => {
 			var conference = response.data;
@@ -42,7 +42,7 @@ const getConference = (confId, callback) => {
 };
 
 // Adds a new conference
-const addConference = (data, callback) => {
+export const addConference = (data, callback) => {
 	api.post("/conference", data, getAuthHeader())
 		.then(response => {
 			var conference = response.data;
@@ -51,7 +51,7 @@ const addConference = (data, callback) => {
 };
 
 // Updates conference details
-const updateConference = (confId, data, callback) => {
+export const updateConference = (confId, data, callback) => {
 	api.put("/conference/"+confId, data, getAuthHeader())
 		.then(response => {
 			var conference = response.data;
@@ -60,7 +60,7 @@ const updateConference = (confId, data, callback) => {
 };
 
 // Marks conference as deleted
-const deleteConference = (confId, callback) => {
+export const deleteConference = (confId, callback) => {
 	api.delete("/conference/"+confId, getAuthHeader())
 		.then(response => {
 			callback();
@@ -70,7 +70,7 @@ const deleteConference = (confId, callback) => {
 /* USERS */
 
 // Returns a list of users associated with a conference
-const getUsers = (confId, callback) => {
+export const getUsers = (confId, callback) => {
 	api.get("/conference/"+confId+"/users", getAuthHeader(allDetails))
 		.then(response => {
 			var users = response.data.items;
@@ -79,7 +79,7 @@ const getUsers = (confId, callback) => {
 };
 
 // Gets details of user within a conference
-const getUser = (confId, userId, callback) => {
+export const getUser = (confId, userId, callback) => {
 	api.get("/conference/"+confId+"/user/"+userId, getAuthHeader(allDetails))
 		.then(response => {
 			var user = response.data;
@@ -88,7 +88,7 @@ const getUser = (confId, userId, callback) => {
 };
 
 // Adds a new user to a conference
-const addUser = (confId, data, callback) => {
+export const addUser = (confId, data, callback) => {
 	api.post("/conference/"+confId+"/user", data, getAuthHeader())
 		.then(response => {
 			getUsers(confId, callback);
@@ -96,7 +96,7 @@ const addUser = (confId, data, callback) => {
 };
 
 // Updates user details / privileges
-const updateUser = (confId, userId, data, callback) => {
+export const updateUser = (confId, userId, data, callback) => {
 	api.put("/conference/"+confId+"/user/"+userId, data, getAuthHeader())
 		.then(response => {
 			getUsers(confId, callback);
@@ -104,7 +104,7 @@ const updateUser = (confId, userId, data, callback) => {
 };
 
 // Deletes a user from a conference
-const deleteUser = (confId, userId, callback) => {
+export const deleteUser = (confId, userId, callback) => {
 	api.delete("/conference/"+confId+"/user/"+userId, getAuthHeader())
 		.then(response => {
 			getUsers(confId, callback);
@@ -114,7 +114,7 @@ const deleteUser = (confId, userId, callback) => {
 /* CONTENT */
 
 // Returns a list of all content linked to a conference
-const getLinkedContent = (confId, callback) => {
+export const getLinkedContent = (confId, callback) => {
 	api.get("/conference/"+confId+"/contents", getAuthHeader(allDetails))
 		.then(response => {
 			var contents = response.data.items;
@@ -123,7 +123,7 @@ const getLinkedContent = (confId, callback) => {
 };
 
 // Links an exist content file to a conference
-const linkContent = (confId, contentId, relation, callback) => {
+export const linkContent = (confId, contentId, relation, callback) => {
 	var data = {
 		relatedAs: relation
 	};
@@ -135,7 +135,7 @@ const linkContent = (confId, contentId, relation, callback) => {
 };
 
 // Removes a link between content and a conference
-const unlinkContent = (confId, contentId, callback) => {
+export const unlinkContent = (confId, contentId, callback) => {
 	api.delete("/conference/"+confId+"/content/"+contentId, getAuthHeader())
 		.then(response => {
 			getLinkedContent(confId, callback);
@@ -163,5 +163,4 @@ var Core = {
 	unlinkContent: unlinkContent
 };
 
-module.exports = Core;
-module.exports.default = Core;
+export default Core;

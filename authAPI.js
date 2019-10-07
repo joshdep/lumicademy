@@ -1,14 +1,14 @@
 import { auth } from './apiDefinitions';
 import { handleErrors } from './errorHandlers';
 
-const TOKEN_KEY = 'access_token';
-const REFRESH_TOKEN = 'refresh_token';
+export const TOKEN_KEY = 'access_token';
+export const REFRESH_TOKEN = 'refresh_token';
 
 var token = localStorage.getItem(TOKEN_KEY);
 var refreshToken = localStorage.getItem(REFRESH_TOKEN);
 
 // Runs a function provided by subscribers every time the token is updated
-var Updater = {
+export var Updater = {
 	subscribers: [],
 	add: function(subscriber) {
 		this.subscribers.push(subscriber);
@@ -25,7 +25,7 @@ var Updater = {
 };
 
 // Refreshes the token before it expires
-var RefreshTimer = {
+export var RefreshTimer = {
 	timer: null,
 	setupTimer: function(tokenInfo) {
 		var expires = tokenInfo.expires_in;
@@ -50,12 +50,12 @@ var RefreshTimer = {
 };
 
 // Simple check for an existing token
-const isAuthenticated = () => {
+export const isAuthenticated = () => {
 	return token ? true : false;
 };
 
 // Returns the necessary headers for accessing APIs with any additional options provided
-const getAuthHeader = addOptions => {
+export const getAuthHeader = addOptions => {
 	const authHeader = {
 		headers: {
 			'Authorization': 'Bearer ' + localStorage.getItem(TOKEN_KEY)
@@ -66,7 +66,7 @@ const getAuthHeader = addOptions => {
 };
 
 // Retrieves all info about the current token in use
-const getTokenInfo = async () => {
+export const getTokenInfo = async () => {
 	var options = {
 		params: {
 			'access_token': localStorage.getItem(TOKEN_KEY)
@@ -83,7 +83,7 @@ const getTokenInfo = async () => {
 };
 
 // Updates the token and runs all update functions from the Updater helper
-const updateToken = tokenData => {
+export const updateToken = tokenData => {
 	token = tokenData.access_token;
 	localStorage.setItem(TOKEN_KEY, tokenData.access_token);
 
@@ -95,7 +95,7 @@ const updateToken = tokenData => {
 };
 
 // Renews the token using a refresh token
-const renewToken = callback => {
+export const renewToken = callback => {
 	const refreshData = {
 		grant_type: 'refresh_token',
 		refresh_token: refreshToken
@@ -121,5 +121,4 @@ var Auth = {
 	renewToken: renewToken
 };
 
-module.exports = Auth;
-module.exports.default = Auth;
+export default Auth;

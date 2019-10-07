@@ -4,10 +4,10 @@ import { TOKEN_KEY, getAuthHeader } from './authAPI';
 import { handleErrors } from './errorHandlers';
 
 // Enumeration for type of delete method
-const deleteMethod = { NEVER: 1, AUTO: 2 };
+export const deleteMethod = { NEVER: 1, AUTO: 2 };
 
 // Helper function to convert from File object to Content Object
-const convertFileToContent = file => {
+export const convertFileToContent = file => {
 	var content = new Content();
 	content.contentType = file.type;
 	content.content = file;
@@ -17,7 +17,7 @@ const convertFileToContent = file => {
 };
 
 // Custom class for Lumicademy Content
-default class Content {
+export class Content {
 	constructor() {
 		this.contentId = undefined;
 		this.content = "";
@@ -61,7 +61,7 @@ default class Content {
 }
 
 // Sets up authorization headers and adds a progress updater if provided
-const generateFileOptions = updateProgress => {
+export const generateFileOptions = updateProgress => {
 	return {
 		headers: { 'Authorization': 'Bearer ' + localStorage.getItem(TOKEN_KEY) },
 		onUploadProgress: updateProgress ? updateProgress : null
@@ -69,7 +69,7 @@ const generateFileOptions = updateProgress => {
 };
 
 // Retrieves all contents under storage id
-const getContents = callback => {
+export const getContents = callback => {
 	api.get("/contents", getAuthHeader())
 		.then(response => {
 			var contents = response.data.items;
@@ -78,7 +78,7 @@ const getContents = callback => {
 };
 
 // Downloads selected content
-const getContent = (content, updateProgress) => {
+export const getContent = (content, updateProgress) => {
 	var options = {
 		responseType: 'blob',
 		onDownloadProgress: updateProgress ? updateProgress : null
@@ -91,7 +91,7 @@ const getContent = (content, updateProgress) => {
 };
 
 // Uploads a file to the storage id
-const addContent = (data, callback, updateProgress) => {
+export const addContent = (data, callback, updateProgress) => {
 	var options = generateFileOptions(updateProgress);
 	upload.post("/content", data, options)
 		.then(response => {
@@ -100,7 +100,7 @@ const addContent = (data, callback, updateProgress) => {
 };
 
 // Updates content info
-const updateContent = (contentId, data, callback, updateProgress) => {
+export const updateContent = (contentId, data, callback, updateProgress) => {
 	var options = generateFileOptions(updateProgress);
 	upload.put("/content/"+contentId, data, options)
 		.then(response => {
@@ -109,7 +109,7 @@ const updateContent = (contentId, data, callback, updateProgress) => {
 };
 
 // Removes content if not in use in a conference. There is also an option to bypass and delete anyway
-const deleteContent = (contentId, callback, forceDelete, errorHandler) => {
+export const deleteContent = (contentId, callback, forceDelete, errorHandler) => {
 	var options = {
 		params: {
 			'force': forceDelete ? forceDelete : false
@@ -134,5 +134,4 @@ var ContentAPI = {
 	deleteContent: deleteContent
 };
 
-module.exports = ContentAPI;
-module.exports.default = ContentAPI;
+export default ContentAPI;
