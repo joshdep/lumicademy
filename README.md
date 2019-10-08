@@ -58,13 +58,29 @@ Auth.Updater.remove(YOUR_FUNCTION_HERE);
 Auth.RefreshTimer.start();
 
 
+/* AUTHENTICATION */
+
+// Retrieves an authorized token using using in credentials and runs a given action. Optional error callback
+Auth.signin(DATA_OBJ, () => {
+	// Do something after success signin
+}, (type, code, message) => {
+	// Handle custom error codes here
+});
+
+// Removes the current token and performs an action if provided
+Auth.signout(() => {
+	// Do something after success signout
+});
+
 // Check for authentication
 Auth.isAuthenticated(); // => true/false
-
 
 // Creates a header for all other API requests that takes optional parameters
 Auth.getAuthHeader(); // => Returns Auth header object
 Auth.getAuthHeader(MORE_OPTIONS); // => Returns Auth header with additional options
+
+
+/* TOKENS */
 
 // Retreive token information from the currently authorized token
 // NOTE: This function is asynchronous and will return a Promise
@@ -203,7 +219,7 @@ var formData = content.getData();
 //       'content': CONTENT_FROM_FILE	
 //    }
 
-// Use the static method convertToFile to convert file from HTML form to Content object
+// Use the static method convertFile to convert file from HTML form to Content object
 ContentAPI.Content.convertFile(FILE_HERE); // => Content()
 
 
