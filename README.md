@@ -203,8 +203,8 @@ var formData = content.getData();
 //       'content': CONTENT_FROM_FILE	
 //    }
 
-// Helper function that converts file from HTML form to Content object
-ContentAPI.convertFileToContent(FILE_HERE); // => Content
+// Use the static method convertToFile to convert file from HTML form to Content object
+ContentAPI.Content.convertFile(FILE_HERE); // => Content()
 
 
 /* CONTENTS */

@@ -49,6 +49,27 @@ export var RefreshTimer = {
 	}
 };
 
+/* AUTHENTICATION */
+
+// Retrieves an authorized token using sign in credentials and runs appropriate action
+export const signin = (data, action, error) => {
+	auth.post("/auth/login", data)
+		.then(response => {
+			updateToken(response.data);
+			if (action !== undefined) action();
+		}).catch(e => handleErrors(e, error));
+};
+
+// Removes the current token and performs an action if provided
+export const signout = action => {
+	auth.delete("/auth/logout", getAuthHeader())
+		.then(response => {
+			localStorage.removeItem(TOKEN_KEY);
+			localStorage.removeItem(REFRESH_TOKEN);
+			if (action !== undefined) action();
+		}).catch(handleErrors);
+};
+
 // Simple check for an existing token
 export const isAuthenticated = () => {
 	return token ? true : false;
@@ -64,6 +85,8 @@ export const getAuthHeader = addOptions => {
 
 	return addOptions ? {...authHeader, ...addOptions} : authHeader;
 };
+
+/* TOKENS */
 
 // Retrieves all info about the current token in use
 export const getTokenInfo = async () => {

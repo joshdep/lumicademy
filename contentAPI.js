@@ -6,16 +6,6 @@ import { handleErrors } from './errorHandlers';
 // Enumeration for type of delete method
 export const deleteMethod = { NEVER: 1, AUTO: 2 };
 
-// Helper function to convert from File object to Content Object
-export const convertFileToContent = file => {
-	var content = new Content();
-	content.contentType = file.type;
-	content.content = file;
-	content.displayName = file.name;
-	content.fileName = file.name;
-	return content;
-};
-
 // Custom class for Lumicademy Content
 export class Content {
 	constructor() {
@@ -40,6 +30,15 @@ export class Content {
 		this.fileName = file.fileName;
 		this.created = file.created;
 		this.deleteMethod = file.deleteMethod;
+	}
+
+	static convertFile(file) {
+		var content = new this();
+		content.contentType = file.type;
+		content.content = file;
+		content.displayName = file.name;
+		content.fileName = file.name;
+		return content;
 	}
 
 	getData() {
