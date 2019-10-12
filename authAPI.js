@@ -33,7 +33,7 @@ export var RefreshTimer = {
 
 		this.timer = setTimeout(() => {
 			console.log("Refreshing Token");
-			renewToken(tokenInfo => this.start(tokenInfo));
+			renewToken();
 		}, almostExpired * 1000);
 	},
 	start: function(tokenInfo) {
@@ -128,7 +128,7 @@ export const renewToken = callback => {
 		.then(response => {
 			var tokenInfo = response.data;
 			updateToken(tokenInfo);
-			callback(tokenInfo);
+			if (callback) callback(tokenInfo);
 		}).catch(handleErrors);
 };
 
