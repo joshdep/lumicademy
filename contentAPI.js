@@ -123,7 +123,6 @@ export const deleteContent = (contentId, callback, forceDelete, errorHandler) =>
 
 var ContentAPI = {
 	deleteMethod: deleteMethod,
-	convertFileToContent: convertFileToContent,
 	Content: Content,
 	generateFileOptions: generateFileOptions,
 	getContents: getContents,
