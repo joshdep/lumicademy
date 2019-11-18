@@ -4,8 +4,8 @@ import { handleErrors } from './errorHandlers';
 
 /* RESPONSES */
 
-export const confState = { 1: "Upcoming",
-						   2: "Started",
+export const confState = { 1: "Waiting to start",
+						   2: "Live",
 						   3: "Ended",
 						   4: "Deleted" };
 
