@@ -59,6 +59,17 @@ export const updateConference = (confId, data, callback) => {
 		}).catch(handleErrors);
 };
 
+export const setConferenceState = (confId, newState, callback) => {
+	var options = {
+		params: { state: newState }
+	};
+
+	api.put("/conference/"+confId+"/state", getAuthHeader(options))
+		.then(response => {
+			callback();
+		}).catch(handleErrors);
+};
+
 // Marks conference as deleted
 export const deleteConference = (confId, callback) => {
 	api.delete("/conference/"+confId, getAuthHeader())
@@ -152,6 +163,7 @@ var Core = {
 	getConference: getConference,
 	addConference: addConference,
 	updateConference: updateConference,
+	setConferenceState: setConferenceState,
 	deleteConference: deleteConference,
 	getUsers: getUsers,
 	getUser: getUser,
