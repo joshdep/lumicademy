@@ -52,6 +52,13 @@ export const addConference = (data, callback) => {
 
 // Updates conference details
 export const updateConference = (confId, data, callback) => {
+	if (data.state) {
+		api.put("/conference"+confId+"/state", getAuthHeader({ params: { state: data.state }}))
+			.then(response => {
+				callback();
+			}).catch(handleErrors);
+	}
+
 	api.put("/conference/"+confId, data, getAuthHeader())
 		.then(response => {
 			var conference = response.data;
