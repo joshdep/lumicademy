@@ -52,28 +52,10 @@ export const addConference = (data, callback) => {
 
 // Updates conference details
 export const updateConference = (confId, data, callback) => {
-	if (data.state) {
-		api.put("/conference"+confId+"/state", getAuthHeader({ params: { state: data.state }}))
-			.then(response => {
-				callback();
-			}).catch(handleErrors);
-	}
-
 	api.put("/conference/"+confId, data, getAuthHeader())
 		.then(response => {
 			var conference = response.data;
 			callback(conference);
-		}).catch(handleErrors);
-};
-
-export const setConferenceState = (confId, newState, callback) => {
-	var options = {
-		params: { state: newState }
-	};
-
-	api.put("/conference/"+confId+"/state", getAuthHeader(options))
-		.then(response => {
-			callback();
 		}).catch(handleErrors);
 };
 
@@ -170,7 +152,6 @@ var Core = {
 	getConference: getConference,
 	addConference: addConference,
 	updateConference: updateConference,
-	setConferenceState: setConferenceState,
 	deleteConference: deleteConference,
 	getUsers: getUsers,
 	getUser: getUser,
