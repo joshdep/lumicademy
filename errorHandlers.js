@@ -44,6 +44,7 @@ const defaultAction = (type, code, message) => {
 	if (code === ERRORCODE.TOKEN_UNAUTHORIZED) {
 		message = "Session Timed Out: Please sign in";
 		window.location.href="/SignIn?type=error&message="+message;
+		localStorage.removeItem(TOKEN_KEY);
 	}
 	console.log(type,code,message);
 };
@@ -58,7 +59,6 @@ export const handleErrors = (error, callback) => {
 		// If no callback is provided, perform default action
 		if (callback === undefined) {
 			callback = defaultAction;
-			localStorage.removeItem(TOKEN_KEY);
 		}
 
 		callback("error", code, message);

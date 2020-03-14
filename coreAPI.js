@@ -60,11 +60,11 @@ export const updateConference = (confId, data, callback) => {
 };
 
 // Marks conference as deleted
-export const deleteConference = (confId, callback) => {
+export const deleteConference = (confId, callback, error) => {
 	api.delete("/conference/"+confId, getAuthHeader())
 		.then(response => {
 			callback();
-		}).catch(handleErrors);
+		}).catch(e => handleErrors(e, error));
 };
 
 /* USERS */
