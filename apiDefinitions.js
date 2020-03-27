@@ -13,19 +13,26 @@ export const allDetails = {
 	}
 };
 
+const apiDomains = {
+	"staging": "-staging",
+	"root": ""
+};
+
+const apiDomain = apiDomains[process.env.REACT_APP_DOMAIN] || "";
+
 /* API URL CONFIGURATIONS */
 
 export const api = axios.create({
-	baseURL: 'https://api.lumicademy.com/',
+	baseURL: `https://api${apiDomain}.lumicademy.com/`,
 	headers: headers
 });
 
 export const upload = axios.create({
-	baseURL: 'https://api.lumicademy.com/'
+	baseURL: `https://api${apiDomain}.lumicademy.com/`
 });
 
 export const auth = axios.create({
-	baseURL: 'https://auth.lumicademy.com/',
+	baseURL: `https://auth${apiDomain}.lumicademy.com/`,
 	headers: headers
 });
 
