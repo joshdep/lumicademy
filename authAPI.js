@@ -1,8 +1,15 @@
 import { auth } from './apiDefinitions';
 import { handleErrors } from './errorHandlers';
 
-export const TOKEN_KEY = 'access_token';
-export const REFRESH_TOKEN = 'refresh_token';
+const storageKeys = {
+	"staging": "_staging",
+	"root": ""
+};
+
+const storageKeySuffix = storageKeys[process.env.REACT_APP_DOMAIN] || "";
+
+export const TOKEN_KEY = `access_token${storageKeySuffix}`;
+export const REFRESH_TOKEN = `refresh_token${storageKeySuffix}`;
 
 var token = localStorage.getItem(TOKEN_KEY);
 var refreshToken = localStorage.getItem(REFRESH_TOKEN);
