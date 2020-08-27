@@ -11,9 +11,6 @@ const storageKeySuffix = storageKeys[process.env.REACT_APP_DOMAIN] || "";
 export const TOKEN_KEY = `access_token${storageKeySuffix}`;
 export const REFRESH_TOKEN = `refresh_token${storageKeySuffix}`;
 
-var token = localStorage.getItem(TOKEN_KEY);
-var refreshToken = localStorage.getItem(REFRESH_TOKEN);
-
 // Runs a function provided by subscribers every time the token is updated
 export var Updater = {
 	subscribers: [],
@@ -79,7 +76,7 @@ export const signout = action => {
 
 // Simple check for an existing token
 export const isAuthenticated = () => {
-	return token ? true : false;
+	return localStorage.getItem(TOKEN_KEY) !== null ? true : false;
 };
 
 // Returns the necessary headers for accessing APIs with any additional options provided
@@ -112,16 +109,18 @@ export const getTokenInfo = async () => {
 	}
 };
 
+let tokenNotifcationTimer = null;
+
 // Updates the token and runs all update functions from the Updater helper
 export const updateToken = tokenData => {
-	token = tokenData.access_token;
 	localStorage.setItem(TOKEN_KEY, tokenData.access_token);
-
-	refreshToken = tokenData.refresh_token;
 	localStorage.setItem(REFRESH_TOKEN, tokenData.refresh_token);
-
-	Updater.notify();
 	RefreshTimer.start(tokenData);
+
+	clearTimeout(tokenNotifcationTimer);
+	tokenNotifcationTimer = setTimeout(() => {
+		Updater.notify();
+	}, 1);
 };
 
 // Renews the token using a refresh token
