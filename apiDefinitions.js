@@ -18,7 +18,7 @@ const apiDomains = {
 	"root": ""
 };
 
-const apiDomain = apiDomains[process.env.REACT_APP_DOMAIN] || "";
+const apiDomain = apiDomains[window.env.ENVIRONMENT] ?? "";
 
 /* API URL CONFIGURATIONS */
 

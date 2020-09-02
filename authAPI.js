@@ -6,7 +6,7 @@ const storageKeys = {
 	"root": ""
 };
 
-const storageKeySuffix = storageKeys[process.env.REACT_APP_DOMAIN] || "";
+const storageKeySuffix = storageKeys[window.env.ENVIRONMENT] ?? "";
 
 export const TOKEN_KEY = `access_token${storageKeySuffix}`;
 export const REFRESH_TOKEN = `refresh_token${storageKeySuffix}`;
