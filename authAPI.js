@@ -3,6 +3,7 @@ import { handleErrors } from './errorHandlers';
 
 const storageKeys = {
 	"staging": "_staging",
+	"development": "_dev",
 	"root": ""
 };
 
