@@ -15,6 +15,7 @@ export const allDetails = {
 
 const apiDomains = {
 	"staging": "-staging",
+	"development": "-staging",
 	"root": ""
 };
 
