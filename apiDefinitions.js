@@ -19,7 +19,8 @@ const apiDomains = {
 	"root": ""
 };
 
-const apiDomain = apiDomains[window.env.ENVIRONMENT] ?? "";
+let env = window.env.ENVIRONMENT;
+const apiDomain = env !== undefined ? apiDomains[env] : "";
 
 /* API URL CONFIGURATIONS */
 

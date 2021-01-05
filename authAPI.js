@@ -7,7 +7,8 @@ const storageKeys = {
 	"root": ""
 };
 
-const storageKeySuffix = storageKeys[window.env.ENVIRONMENT] ?? "";
+let env = window.env.ENVIRONMENT;
+const storageKeySuffix = env !== undefined ? storageKeys[env] : "";
 
 export const TOKEN_KEY = `access_token${storageKeySuffix}`;
 export const REFRESH_TOKEN = `refresh_token${storageKeySuffix}`;
