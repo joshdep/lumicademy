@@ -19,7 +19,7 @@
     "virtual"
   ],
   "dependencies": {
-    "axios": "^0.19.0",
-    "js-file-download": "^0.4.8"
+    "axios": "^0.21.1",
+    "js-file-download": "^0.4.12"
   }
 }
